@@ -1,0 +1,21 @@
+JWKS server
+	1. Figure out what language to use
+		a. Python?
+		b. JavaScript?
+		c. C++?
+		d. Brainfuck?
+	2. Web Server
+		a. POST / auth
+		b. GET JWKS (.well-known/jwks.json)
+	3. Generate an RSA private key (you get a public key for free)
+	4. Encode your JWT:
+		a. This has a standard format:
+			i. header.payload.signature
+		b. Generate a Key ID (kid), and set that in the header
+		c. sign it with your private key
+		d. send that back to the requestor on GET:/auth
+	5. Encode your JWKS:
+		a. Just an array of JWKs in JSON: {"keys": [$mycoolJWK]}
+		b. Encode your JWK:
+			i. There's a spec for RSA keys...(there's a spec for each kind of key)
+			ii. {"kid":"KIDGoesHere","alg":"RS256","kty":"RSA","use":"sig","n":Modulus,"e":Exponent}
